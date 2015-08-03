@@ -234,6 +234,7 @@ tcpeek_init_addr(void) {
 
 	if(getifaddrs(&ifap) != -1) {
 		for(ifa = ifap; ifa != NULL; ifa = ifa->ifa_next) {
+			if(!ifa->ifa_addr) continue;
 			if(strisequal(ifa->ifa_name, g.option.ifname) && ifa->ifa_addr->sa_family == AF_INET) {
 				g.addr.unicast.s_addr = ((struct sockaddr_in *)ifa->ifa_addr)->sin_addr.s_addr;
 				break;
